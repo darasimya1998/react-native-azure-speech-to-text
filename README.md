@@ -1,0 +1,1 @@
+# react-native-azure-speech-to-text
