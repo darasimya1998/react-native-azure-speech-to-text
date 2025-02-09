@@ -1,97 +1,162 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+Here's a complete `README.md` for your project:
 
-# Getting Started
+```markdown
+# AzureSTT - React Native Speech Recognition with Azure Cognitive Services
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+`AzureSTT` is a class for integrating Azure Speech-to-Text (STT) capabilities into your React Native application using the Microsoft Cognitive Services Speech SDK and `react-native-live-audio-stream`. This package helps you recognize speech from a microphone stream and process it in real-time.
 
-## Step 1: Start Metro
+## Features
+- Initialize Azure Speech Recognizer using your API key and region.
+- Recognize speech once from the microphone input.
+- Continuous speech recognition with real-time feedback.
+- Stream audio data using `react-native-live-audio-stream` for custom processing.
+- Works seamlessly on both iOS and Android platforms.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Installation
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### 1. Install Dependencies
+Install the necessary libraries:
 
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+```bash
+npm install react-native-get-random-values node-libs-react-native react-native-live-audio-stream microsoft-cognitiveservices-speech-sdk
 ```
 
-## Step 2: Build and run your app
+Make sure to link any native dependencies if required by the libraries (especially for `react-native-live-audio-stream`).
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### 2. Link the Native Modules
+If using React Native versions below 0.60, you may need to link the libraries manually. For newer versions, the libraries should auto-link.
 
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+npx react-native link react-native-live-audio-stream
 ```
 
-### iOS
+---
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+## Usage
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+### 1. Importing and Initializing the AzureSTT Class
 
-```sh
-bundle install
+```typescript
+import { AzureSTT } from 'path-to-your-azure-stt-class';
+
+// Initialize with your Azure Speech API key and region
+const stt = new AzureSTT({
+  apiKey: 'YOUR_AZURE_API_KEY',
+  region: 'YOUR_AZURE_REGION',
+});
 ```
 
-Then, and every time you update your native dependencies, run:
+### 2. Recognize Speech Once
+To recognize speech once from the microphone, use the `recognizeOnceAsync` method:
 
-```sh
-bundle exec pod install
+```typescript
+stt.recognizeOnceAsync()
+  .then((text) => {
+    console.log('Recognized Text:', text);
+  })
+  .catch((error) => {
+    console.error('Error recognizing speech:', error);
+  });
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### 3. Start Listening to Microphone Stream
+For real-time speech recognition, you can start listening to the microphone and processing audio data:
 
-```sh
-# Using npm
-npm run ios
+```typescript
+stt.startListening();
 
-# OR using Yarn
-yarn ios
+// Optional: to stop listening
+stt.stopListening();
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+### 4. Continuous Recognition
+To continuously recognize speech, use `startContinuousRecognition`:
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+```typescript
+stt.startContinuousRecognition();
 
-## Step 3: Modify your app
+// Optional: to stop continuous recognition
+stt.stopContinuousRecognition();
+```
 
-Now that you have successfully run the app, let's make changes!
+---
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## Class Methods
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### `recognizeOnceAsync`
+- **Description**: Recognizes speech once from the microphone.
+- **Returns**: A `Promise<string>` that resolves with the recognized text or rejects with an error.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+### `startListening`
+- **Description**: Starts listening to the microphone stream and captures audio data.
+- **Event Handling**: The `AudioRecord.on('data', (data))` event allows you to process the captured audio data in real-time.
 
-## Congratulations! :tada:
+### `stopListening`
+- **Description**: Stops listening to the microphone stream.
 
-You've successfully run and modified your React Native App. :partying_face:
+### `startContinuousRecognition`
+- **Description**: Starts continuous speech recognition. The recognizer processes speech continuously and updates the result in real-time.
+- **Event Handling**: The recognizer will call the `recognizing` and `recognized` events to provide real-time updates.
 
-### Now what?
+### `stopContinuousRecognition`
+- **Description**: Stops continuous recognition and ends the process.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+---
 
-# Troubleshooting
+## Configuration Options
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+### `AzureSTTOptions`
+- **`apiKey`**: Your Azure Speech API key.
+- **`region`**: Your Azure region (e.g., 'eastus', 'westeurope').
 
-# Learn More
+---
 
-To learn more about React Native, take a look at the following resources:
+## Example
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+```typescript
+import { AzureSTT } from './AzureSTT';
+
+const stt = new AzureSTT({
+  apiKey: 'YOUR_AZURE_API_KEY',
+  region: 'YOUR_AZURE_REGION',
+});
+
+// Recognize speech once
+stt.recognizeOnceAsync()
+  .then((text) => {
+    console.log('Recognized Text:', text);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+
+// Start continuous recognition
+stt.startContinuousRecognition();
+
+// Stop continuous recognition after 10 seconds
+setTimeout(() => {
+  stt.stopContinuousRecognition();
+}, 10000);
+```
+
+---
+
+## Requirements
+- React Native version 0.60 or above.
+- An active Azure Speech API subscription.
+- Permissions to access the microphone on both iOS and Android.
+
+---
+
+## Troubleshooting
+
+- **Speech Recognition Not Working**: Ensure your Azure API key and region are correctly configured. Check the network connectivity and microphone permissions on your device.
+- **Real-Time Audio Stream Issues**: If the audio data isn’t being processed correctly, make sure you’ve correctly set up `react-native-live-audio-stream` and have the necessary permissions.
+
+---
+
+## License
+MIT License. See [LICENSE](LICENSE) for more information.
+```
+
+This markdown content is ready to be used as a `README.md` for your npm package. It includes sections for installation, usage, examples, configuration options, and troubleshooting tips to help users get started easily. Let me know if you need any additional changes or features!
