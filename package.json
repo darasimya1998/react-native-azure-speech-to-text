@@ -1,0 +1,29 @@
+{
+  "name": "react-native-azure-speech-to-text",
+  "version": "1.0.1",
+  "description": "A React Native package for Azure Speech to Text",
+  "main": "src/index.ts",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "microsoft-cognitiveservices-speech-sdk": "^1.42.0",
+    "node-libs-react-native": "^1.2.1",
+    "react-native-get-random-values": "^1.11.0",
+    "react-native-live-audio-stream": "^1.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  },
+  "keywords": [
+    "azure",
+    "speech-to-text",
+    "speech",
+    "recognition",
+    "microsoft"
+  ],
+  "author": "Dara NEB",
+  "license": "MIT"
+}
