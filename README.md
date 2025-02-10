@@ -1,5 +1,4 @@
-Here's a complete `README.md` for your project:
-
+A React Native package for Azure Speech to Text!
 ```markdown
 # AzureSTT - React Native Speech Recognition with Azure Cognitive Services
 
