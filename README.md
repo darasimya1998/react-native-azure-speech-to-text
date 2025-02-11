@@ -151,11 +151,13 @@ setTimeout(() => {
 
 - **Speech Recognition Not Working**: Ensure your Azure API key and region are correctly configured. Check the network connectivity and microphone permissions on your device.
 - **Real-Time Audio Stream Issues**: If the audio data isn’t being processed correctly, make sure you’ve correctly set up `react-native-live-audio-stream` and have the necessary permissions.
+- **metro-config.js**: add a resolver ` resolver: {
+    extraNodeModules: require('node-libs-react-native'),
+    sourceExts: ['jsx', 'js', 'ts', 'tsx', 'cjs', 'json'],
+  },`
 
 ---
 
 ## License
 MIT License. See [LICENSE](LICENSE) for more information.
 ```
-
-This markdown content is ready to be used as a `README.md` for your npm package. It includes sections for installation, usage, examples, configuration options, and troubleshooting tips to help users get started easily. Let me know if you need any additional changes or features!
