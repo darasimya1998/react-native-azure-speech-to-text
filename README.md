@@ -4,7 +4,7 @@
 
 ## Features
 - Supports single-shot and continuous speech recognition.
-- Streams microphone audio to Azure Speech API in real-time.
+- Streams microphone audio to Azure Speech API in real-time.### `.startListening()`
 - Works on both Android and iOS.
 - Uses `react-native-live-audio-stream` for audio processing.
 - Easy-to-use API for integrating Azure Speech recognition into your app.
@@ -34,19 +34,18 @@ npx react-native link react-native-live-audio-stream
 
 ### Import and initialize
 ```typescript
-import { AzureSTT } from 'react-native-azure-speech-to-text';
+import { AzureReactNativeSpeechService } from 'react-native-azure-speech-to-text';
 
-const stt = new AzureSTT({
+const stt = new AzureReactNativeSpeechService({
   apiKey: 'YOUR_AZURE_API_KEY',
   region: 'YOUR_AZURE_REGION',
 });
 ```
-
-### Recognize speech once
+### Start and stop listening to microphone stream
 ```typescript
-stt.recognizeOnceAsync()
-  .then((text) => console.log('Recognized:', text))
-  .catch((error) => console.error('Error:', error));
+stt.startListening();
+// To stop listening
+stt.stopListening();
 ```
 
 ### Start continuous recognition
@@ -59,36 +58,26 @@ setTimeout(() => {
 }, 10000);
 ```
 
-### Start and stop listening to microphone stream
-```typescript
-stt.startListening();
-// To stop listening
-stt.stopListening();
-```
-
 ## API Reference
 
-### `new AzureSTT(options)`
+### `new AzureReactNativeSpeechService(options)`
 Initializes a new Azure Speech-to-Text instance.
 
 **Options:**
 - `apiKey` (string) – Your Azure Speech API key.
 - `region` (string) – Your Azure region (e.g., 'eastus').
 
-### `.recognizeOnceAsync(): Promise<string>`
-Recognizes speech once and returns the transcribed text.
+### `.startListening()`
+Starts capturing microphone audio stream.
+
+### `.stopListening()`
+Stops capturing microphone audio.
 
 ### `.startContinuousRecognition()`
 Starts continuous speech recognition.
 
 ### `.stopContinuousRecognition()`
 Stops continuous speech recognition.
-
-### `.startListening()`
-Starts capturing microphone audio stream.
-
-### `.stopListening()`
-Stops capturing microphone audio.
 
 ## Troubleshooting
 

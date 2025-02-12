@@ -2,8 +2,7 @@
   "name": "react-native-azure-speech-to-text",
   "version": "1.0.1",
   "description": "A React Native package for Azure Speech to Text",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "src/index.ts",
   "files": [
     "dist/**/*"
   ],
